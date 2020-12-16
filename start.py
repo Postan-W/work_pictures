@@ -23,7 +23,7 @@ def image_process(source,destination):
     # 文件列表
     name_list = os.listdir(destination)
     # 带完整路径的列表
-    entire_list     = [os.path.join(destination, file) for file in name_list]
+    entire_list = [os.path.join(destination, file) for file in name_list]
 
     for file in entire_list:
         os.remove(file)

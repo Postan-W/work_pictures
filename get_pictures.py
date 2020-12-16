@@ -6,6 +6,7 @@ import time
 search_dict = {'guid': 'lijing', 'token': 'C9naqdkliyoDcb4x', 'type': 'image',
                'keyword':'日历','pageNo': "1", 'pageSize':"2000",'startDate':start,"endDate": end,'field':'firstTime', "direction":""}
 注：field:impression和direction：DESC的效果相当于按热度或点击率降序获取
+注：field:firstTime获取最新的图片
 """
 def getArgu():
     startTime = input("请输入开始时间:")
@@ -18,7 +19,7 @@ guid,token,keyword,start, end = getArgu()
 
 base_url = "http://adsoc.qknode.com/adagent/material/material?"
 search_dict = {'guid': guid, 'token': token, 'type': 'image',
-               'keyword':keyword,'pageNo': "1", 'pageSize':"2000",'startDate':start,"endDate": end,'field':'impression', "direction":""}
+               'keyword':keyword,'pageNo': "1", 'pageSize':"2000",'startDate':start,"endDate": end,'field':'firstTime', "direction":""}
 
 def concatenateURL(base_url):
     for key in search_dict:

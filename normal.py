@@ -9,6 +9,8 @@ import sys
 search_dict = {'guid': 'lijing', 'token': 'C9naqdkliyoDcb4x', 'type': 'image',
                'keyword':'天气','pageNo': "1", 'pageSize':
         "100",'startDate':start,"endDate": end,'field':'firstTime', "direction":""}
+注：field:impression和direction：DESC的效果相当于按热度或点击率降序获取
+注：field:firstTime获取最新的图片        
 """
 
 #这个模块获取用户输入的参数
