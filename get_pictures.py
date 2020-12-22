@@ -7,6 +7,8 @@ search_dict = {'guid': 'lijing', 'token': 'C9naqdkliyoDcb4x', 'type': 'image',
                'keyword':'日历','pageNo': "1", 'pageSize':"2000",'startDate':start,"endDate": end,'field':'firstTime', "direction":""}
 注：field:impression和direction：DESC的效果相当于按热度或点击率降序获取
 注：field:firstTime获取最新的图片
+注：同一个类型下可以用channel参数进一步筛选，比如channel=102代表腾讯广告，105代表巨量引擎
+注：keyword可以是任意筛选语言，比如“手机垃圾过多”也代表清理类图片
 """
 def getArgu():
     startTime = input("请输入开始时间:")

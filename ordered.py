@@ -23,7 +23,7 @@ def getArgument():
     token = input("请输入token:")
     appType = input("请输入appType:")
     userTag = input("请输入userTag:")
-    return start_time,end_time,guid,token,appType,userTag
+    return start_time,end_time,guid,token,appType,""
 
 
 def get_sorted_pictures():
@@ -51,50 +51,23 @@ def get_sorted_pictures():
 
 def save_sorted_pictures(sorted_pictures,appType):
     count = 0
-    if appType == "清理产品":
-        pictures_name = os.listdir("./ordered_pictures/clear/")
-        entire_list = [os.path.join("./ordered_pictures/clear/", file) for file in pictures_name]
-        for file in entire_list:
-            os.remove(file)
+    pictures_name = os.listdir("./ordered_pictures/")
+    entire_list = [os.path.join("./ordered_pictures/", file) for file in pictures_name]
+    for file in entire_list:
+        os.remove(file)
 
-        print("正在获取文件，请等待.....")
-        #获取图片数量
-        pictures = len(sorted_pictures)
-        number = 500 if pictures > 500 else pictures
-        for pic in sorted_pictures[:number]:
-            count += 1
-            url = pic["url"]
-            queryurl = requests.get(url)
-            with open("./ordered_pictures/clear/" + str(count) + ".jpg", "wb")as f:
-                f.write(queryurl.content)
-    if appType == "天气产品":
-        pictures_name = os.listdir("./ordered_pictures/weather/")
-        entire_list = [os.path.join("./ordered_pictures/weather/", file) for file in pictures_name]
-        for file in entire_list:
-            os.remove(file)
+    print("正在获取文件，请等待.....")
+    #获取图片数量
+    pictures = len(sorted_pictures)
+    number = 500 if pictures > 500 else pictures
+    for pic in sorted_pictures[:number]:
+        count += 1
+        url = pic["url"]
+        queryurl = requests.get(url)
+        with open("./ordered_pictures/" + str(count) + ".jpg", "wb")as f:
+            f.write(queryurl.content)
 
-        print("正在获取文件，请等待.....")
-        pictures = len(sorted_pictures)
-        number = 500 if pictures > 500 else pictures
-        for pic in sorted_pictures[:number]:
-            count += 1
-            url = pic["url"]
-            queryurl = requests.get(url)
-            with open("./ordered_pictures/weather/" + str(count) + ".jpg", "wb")as f:
-                f.write(queryurl.content)
-    if appType == "日历产品":
-        pictures_name = os.listdir("./ordered_pictures/calendar/")
-        entire_list = [os.path.join("./ordered_pictures/calendar/", file) for file in pictures_name]
-        for file in entire_list:
-            os.remove(file)
-        print("正在获取文件，请等待.....")
-        pictures = len(sorted_pictures)
-        number = 500 if pictures > 500 else pictures
-        for pic in sorted_pictures[:number]:
-            count += 1
-            url = pic["url"]
-            queryurl = requests.get(url)
-            with open("./ordered_pictures/calendar/" + str(count) + ".jpg", "wb") as f:
-                f.write(queryurl.content)
+
+
 
 
