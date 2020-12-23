@@ -9,6 +9,7 @@ from moviepy.editor import VideoFileClip
 from predict_new2 import picGAN
 from PIL import Image
 import time
+import os
 g = picGAN()
 q = queue.Queue()
 
@@ -23,7 +24,7 @@ def processedGAN(img):
     res = np.array(img)
     return res
 
-def conver(in_filename:str,out_filename:str,num:int):
+def conver(in_filename:str,out_filename:str):
     videoreader = cv2.VideoCapture(in_filename)
     # 获取视频宽度
     width = int(videoreader.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -67,18 +68,15 @@ def conver(in_filename:str,out_filename:str,num:int):
 
     # 将提取的音频和第二个视频文件进行合成
     videoclip_3 = videoclip_2.set_audio(audio_1)
-
+    out_name = os.path.basename(out_filename)
     # 输出新的视频文件
-    videoclip_3.write_videofile("./video_destination/new_{}.mp4".format(str(num)))
+    videoclip_3.write_videofile("./video_destination/new_"+out_name)
 
-
-
-
-
-
-
-# if __name__ == '__main__':
-#     for i in range(8, 9):
-#         conver("./video_origin/%d.mp4"%i,"./video_destination/%d.mp4"%i,i)
-
-conver("./video_origin/55.mp4","./video_destination/55.mp4",55)
+origins = os.listdir("./video_origin/")
+entire_path = [os.path.join("./video_origin/",file) for file in origins]
+for video in entire_path:
+    #获取文件名
+    name = os.path.basename(video)
+    #拼接成目标文件的完整路径（不带声音的）
+    d_path = "./video_destination/"+name
+    conver(video,d_path)

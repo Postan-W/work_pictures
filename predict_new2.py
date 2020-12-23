@@ -6,6 +6,11 @@ import os
 # os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import tensorflow as tf
 tf.logging.set_verbosity(tf.logging.ERROR)
+# config = tf.ConfigProto()
+#分配最大内存使用率很容易出错，因为内存不足
+# config.gpu_options.per_process_gpu_memory_fraction = 0.8
+# config.gpu_options.allow_growth = True
+# sess = tf.Session(config = config)
 import cv2
 import cyclegan
 from PIL import Image
