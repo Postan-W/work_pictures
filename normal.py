@@ -46,7 +46,7 @@ def getPictureMaterial(url):
     print("获取地址为："+url)
     print("正在获取，如果图片较多则需较长等待.................")
     json_data = requests.get(url).text
-    #将请求到的json格式数据转为python字典，为了更方便处理
+    #json是字符串，将其转为对应的python数据结构需要loads,比如这里loads的结果就是字典
     response_dict = json.loads(json_data)
     #注意，获取到的图片素材链接前面没有http协议，故要加上
     #注意，content的值是个数组，materials的值也是个数组
