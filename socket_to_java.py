@@ -3,6 +3,7 @@ import sys
 import threading
 import json
 import numpy as np
+import struct
 #创建服务器套接字
 #socket.socket(socket_family,socket_type,protocol=0)
 """
@@ -49,7 +50,8 @@ print(socket_name)
 
 class ServerThreading(threading.Thread):
     # words = text2vec.load_lexicon()
-    def __init__(self, clientsocket,recvsize=1024 * 1024,encoding="utf-8"):
+    def __init__(self, clientsocket,recvsize=1024 * 1024*3,encoding="utf-8"):
+        #以上参数为客户端的连接、缓冲区大小(一次接收的数据量，放到内存中),数据编码
         threading.Thread.__init__(self)
         self._socket = clientsocket
         self._recvsize = recvsize
@@ -60,24 +62,15 @@ class ServerThreading(threading.Thread):
     def run(self):
         print("开启线程.....")
         try:
-            # 接受数据
-            msg = ''
-            # 读取recvsize个字节
-            rec = self._socket.recv(self._recvsize)#目前来看这一步是等待客户端送出数据，即阻塞
+            #定义文件头
+
+            rec = self._socket.recv(self._recvsize)
             self.count += 1
             print(self.count)
-            print(type(rec))#rec是bytes格式,即字节流，下面要把它转为特定可读编码
-            print(rec)
-            # 解码
-            msg += rec.decode(self._encoding)
-            # 文本接受是否完毕，因为python socket不能自己判断接收数据是否完毕，
-            # 所以需要自定义协议标志数据接受完毕
+            with open("new_a60.jpg","wb") as f:
+                f.write(rec)
+           # print(type(rec))
 
-            # 解析json格式的数据
-            # re = json.loads(msg)
-            # 调用神经网络模型处理请求
-            # res = nnservice.hand(re['content'])
-            print(msg)
             sendmsg = "接收的数据已经过python处理"
             # 发送数据
             self._socket.send(("%s\n" % sendmsg).encode(self._encoding))
